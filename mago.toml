@@ -1,0 +1,123 @@
+php-version = "8.3.0"
+
+[source]
+paths = ["src/", "tests/"]
+includes = ["vendor"]
+excludes = []
+
+[formatter]
+always-break-named-arguments-list = false
+inline-empty-classlike-braces = true
+inline-empty-function-braces = true
+inline-empty-method-braces = true
+null-type-hint = "question"
+preserve-breaking-argument-list = true
+preserve-breaking-array-like = true
+preserve-breaking-attribute-list = true
+preserve-breaking-conditional-expression = true
+preserve-breaking-member-access-chain = true
+preserve-breaking-parameter-list = true
+
+[linter]
+integrations = ["symfony"]
+
+[linter.rules]
+assert-description = { enabled = false }
+braced-string-interpolation = { enabled = false }
+class-name = { enabled = false }
+constant-name = { enabled = false }
+cyclomatic-complexity = { enabled = false }
+excessive-parameter-list = { enabled = false }
+final-controller = { enabled = false }
+function-name = { enabled = false }
+halstead = { enabled = false }
+interface-name = { enabled = false }
+kan-defect = { enabled = false }
+literal-named-argument = { enabled = false }
+no-assign-in-condition = { enabled = false }
+no-boolean-flag-parameter = { enabled = false }
+no-else-clause = { enabled = false }
+no-empty = { enabled = false }
+no-empty-comment = { enabled = false }
+no-literal-password = { enabled = false }
+no-shorthand-ternary = { enabled = false }
+prefer-first-class-callable = { enabled = false }
+tagged-fixme = { enabled = false }
+tagged-todo = { enabled = false }
+too-many-methods = { enabled = false }
+trait-name = { enabled = false }
+
+[analyzer]
+allow-possibly-undefined-array-keys = false
+analyze-dead-code = true
+check-arrow-function-missing-type-hints = true
+check-closure-missing-type-hints = true
+check-missing-type-hints = true
+check-throws = true
+find-unused-definitions = true
+find-unused-expressions = true
+memoize-properties = true
+no-boolean-literal-comparison = true
+perform-heuristic-checks = true
+strict-list-index-checks = true
+trust-existence-checks = false
+ignore = [
+    "impossible-assignment",
+    "impossible-condition",
+    "impossible-nonnull-entry-check",
+    "incompatible-property-type",
+    "invalid-argument",
+    "invalid-array-index",
+    "invalid-destructuring-source",
+    "invalid-iterator",
+    "invalid-method-access",
+    "invalid-operand",
+    "invalid-property-assignment-value",
+    "invalid-return-statement",
+    "less-specific-argument",
+    "less-specific-nested-argument-type",
+    "less-specific-nested-return-statement",
+    "less-specific-return-statement",
+    "mismatched-array-index",
+    "missing-magic-method",
+    "missing-override-attribute",
+    "mixed-argument",
+    "mixed-array-access",
+    "mixed-array-assignment",
+    "mixed-array-index",
+    "mixed-assignment",
+    "mixed-method-access",
+    "mixed-operand",
+    "mixed-property-access",
+    "mixed-return-statement",
+    "no-value",
+    "non-documented-method",
+    "non-documented-property",
+    "non-existent-class-like",
+    "non-existent-method",
+    "non-existent-property",
+    "null-argument",
+    "null-array-index",
+    "null-operand",
+    "null-property-access",
+    "nullable-return-statement",
+    "possibly-invalid-argument",
+    "possibly-false-argument",
+    "possibly-null-argument",
+    "possibly-null-array-access",
+    "possibly-null-array-index",
+    "possibly-undefined-array-index",
+    "possibly-undefined-string-array-index",
+    "redundant-comparison",
+    "redundant-condition",
+    "redundant-logical-operation",
+    "redundant-null-coalesce",
+    "template-constraint-violation",
+    "too-many-arguments",
+    "undefined-string-array-index",
+    "undefined-variable",
+    "unhandled-thrown-type",
+    "unsafe-instantiation",
+    "unused-parameter",
+    "unused-statement"
+]

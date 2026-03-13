@@ -1,0 +1,42 @@
+#### ignore all dotfiles and dot-dirs, with exceptions
+.*
+!.config/
+!.distignore
+!.dockerignore
+!.editorconfig
+!.env.example
+!.gitattributes
+!.gitignore
+
+#### ignore these patterns
+*.bak
+*.log
+*.tmp
+*.local
+*.local.*
+*.secret
+*.secret.*
+
+#### ignore these specific directories
+tmp/
+vendor/
+
+#### ignore these specific files
+auth.json
+docker-compose.override.yml
+
+# Local key storage (contains private keys - never commit!)
+*.keys.json
+fair-keys.json
+.fair-keys.json
+
+# misc
+*.cache
+*.sublime-project
+*.sublime-workspace
+*.swo
+*.swp
+*~
+Thumbs.db
+desktop.ini
+examples/temp-storage/keystore.json

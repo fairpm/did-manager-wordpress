@@ -1,0 +1,48 @@
+{
+  "name": "fairpm/did-manager-wordpress",
+  "description": "WordPress integration layer for FAIR DID management and metadata generation",
+  "license": "GPL-3.0-or-later",
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "authors": [
+    {
+      "name": "FAIRPM",
+      "email": "info@fairpm.org"
+    }
+  ],
+  "require": {
+    "php": ">=8.3",
+    "ext-json": "*",
+    "afragen/wordpress-plugin-readme-parser": "^1.2025.12",
+    "fairpm/did-manager": "^0.0.3"
+  },
+  "require-dev": {
+    "carthage-software/mago": "^1.0.0-rc.12",
+    "phpunit/phpunit": "^10.0",
+    "roave/security-advisories": "dev-latest"
+  },
+  "autoload": {
+    "psr-4": {
+      "FAIR\\WordPress\\DID\\": "src/FAIR/WordPress/DID/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
+  "scripts": {
+    "analyze": "mago analyze",
+    "format": "mago format",
+    "lint": "mago lint",
+    "tests": "phpunit"
+  },
+  "config": {
+    "allow-plugins": {
+      "carthage-software/mago": true
+    },
+    "notify-on-install": false,
+    "optimize-autoloader": true,
+    "sort-packages": true
+  }
+}
