@@ -12,6 +12,8 @@ declare(strict_types=1);
 
 namespace FAIR\WordPress\DID\Parsers;
 
+use Parsedown;
+
 /**
  * MetadataGenerator - FAIR metadata.json generation.
  */
@@ -51,6 +53,13 @@ class MetadataGenerator
      * @var string|null
      */
     private ?string $type = null;
+
+    /**
+     * Markdown parser instance.
+     *
+     * @var Parsedown|null
+     */
+    private ?Parsedown $markdown_parser = null;
 
     /**
      * Constructor.
@@ -134,7 +143,7 @@ class MetadataGenerator
         // Description.
         $description = $this->get_description();
         if ($description) {
-            $metadata['description'] = $description;
+            $metadata['description'] = $this->render_markdown_if_needed($description);
         }
 
         // Homepage.
@@ -175,7 +184,7 @@ class MetadataGenerator
 
         // Sections from readme.
         if (!empty($this->readme_data['sections'])) {
-            $metadata['sections'] = $this->readme_data['sections'];
+            $metadata['sections'] = $this->render_section_markdown($this->readme_data['sections']);
         }
 
         // Generated timestamp.
@@ -457,6 +466,77 @@ class MetadataGenerator
         }
 
         return !empty($security) ? $security : null;
+    }
+
+    /**
+     * Render markdown content to HTML when markdown markers are present.
+     *
+     * @param string $content Field content.
+     * @return string HTML or original content.
+     */
+    private function render_markdown_if_needed(string $content): string
+    {
+        $content = trim($content);
+        if ('' === $content || $this->looks_like_html($content) || !$this->contains_markdown($content)) {
+            return $content;
+        }
+
+        if (null === $this->markdown_parser) {
+            $parser = new Parsedown();
+            if (method_exists($parser, 'setSafeMode')) {
+                $parser->setSafeMode(true);
+            }
+            $this->markdown_parser = $parser;
+        }
+
+        $parser = $this->markdown_parser;
+        $rendered = $parser->text($content);
+
+        return is_string($rendered) ? trim($rendered) : $content;
+    }
+
+    /**
+     * Render markdown-capable readme sections to HTML.
+     *
+     * @param array $sections Readme sections.
+     * @return array
+     */
+    private function render_section_markdown(array $sections): array
+    {
+        foreach ($sections as $section => $content) {
+            if (!is_string($content)) {
+                continue;
+            }
+
+            $sections[$section] = $this->render_markdown_if_needed($content);
+        }
+
+        return $sections;
+    }
+
+    /**
+     * Check whether content already includes HTML tags.
+     *
+     * @param string $content Content to inspect.
+     * @return bool
+     */
+    private function looks_like_html(string $content): bool
+    {
+        return 1 === preg_match('/<\s*[a-z][^>]*>/i', $content);
+    }
+
+    /**
+     * Check whether content appears to include markdown syntax.
+     *
+     * @param string $content Content to inspect.
+     * @return bool
+     */
+    private function contains_markdown(string $content): bool
+    {
+        return 1 === preg_match(
+            '/(\*\*[^*]+\*\*|__[^_]+__|`[^`]+`|\[[^\]]+\]\([^)]+\)|^\s*[-*+]\s+|^\s*\d+\.\s+|^\s*#{1,6}\s+|^\s*=\s*[^=]+\s*=\s*$)/m',
+            $content,
+        );
     }
 
     /**

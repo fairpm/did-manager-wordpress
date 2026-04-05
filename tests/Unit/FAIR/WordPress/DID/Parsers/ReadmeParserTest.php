@@ -198,6 +198,21 @@ class ReadmeParserTest extends TestCase
     }
 
     /**
+     * Test sections preserve formatted content from readme
+     */
+    public function testSectionsPreserveFormattedContent(): void
+    {
+        $result = $this->parser->parse_content($this->get_full_readme());
+
+        $description = $result['sections']['description'] ?? '';
+        $installation = $result['sections']['installation'] ?? '';
+
+        $this->assertStringContainsString('full description of the plugin', $description);
+        $this->assertStringContainsString('Upload the plugin files.', $installation);
+        $this->assertMatchesRegularExpression('/(<ol>|\d+\.)/', $installation);
+    }
+
+    /**
      * Test minimal readme parsing
      */
     public function testParseminimal_readme(): void
@@ -231,6 +246,18 @@ class ReadmeParserTest extends TestCase
         $changelog = $result['sections']['changelog'] ?? '';
         $parsed_changelog = $this->parser->parse_changelog($changelog);
         $this->assertArrayHasKey('1.2.2', $parsed_changelog);
+    }
+
+    /**
+     * Test parse_changelog handles rendered HTML input
+     */
+    public function testParseChangelogHandlesHtmlInput(): void
+    {
+        $changelog_html = '<h4>1.2.3</h4><ul><li>Fixed a bug</li><li>Added a feature</li></ul>';
+        $parsed_changelog = $this->parser->parse_changelog($changelog_html);
+
+        $this->assertArrayHasKey('1.2.3', $parsed_changelog);
+        $this->assertContains('Fixed a bug', $parsed_changelog['1.2.3']);
     }
 
     /**
