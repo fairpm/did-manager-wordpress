@@ -14,6 +14,7 @@
     "php": ">=8.3",
     "ext-json": "*",
     "afragen/wordpress-plugin-readme-parser": "^1.2025.12",
+    "erusev/parsedown": "^1.7",
     "fairpm/did-manager": "^0.0.3"
   },
   "require-dev": {

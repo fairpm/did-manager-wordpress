@@ -153,8 +153,8 @@ class ReadmeParser
         if (!empty($this->parser->sections)) {
             foreach ($this->parser->sections as $name => $content) {
                 $normalized_name = $this->normalize_key($name);
-                // Strip HTML tags from section content for consistency
-                $result['sections'][$normalized_name] = strip_tags($content);
+                // The upstream parser already sanitizes and renders Markdown to HTML.
+                $result['sections'][$normalized_name] = $content;
             }
         }
 
@@ -243,7 +243,7 @@ class ReadmeParser
         $current_changes = [];
         $matches = [];
 
-        $lines = explode("\n", $changelog);
+        $lines = explode("\n", $this->normalize_changelog_content($changelog));
         foreach ($lines as $line) {
             $trimmed = trim($line);
 
@@ -275,6 +275,32 @@ class ReadmeParser
         }
 
         return $entries;
+    }
+
+    /**
+     * Normalize changelog content to plain lines for parser compatibility.
+     *
+     * @param string $changelog Raw changelog content.
+     * @return string Normalized text.
+     */
+    private function normalize_changelog_content(string $changelog): string
+    {
+        if (!str_contains($changelog, '<')) {
+            return $changelog;
+        }
+
+        $normalized = preg_replace('/<\s*br\s*\/??\s*>/i', "\n", $changelog);
+        $normalized = preg_replace('/<\s*\/\s*p\s*>/i', "\n", (string) $normalized);
+        $normalized = preg_replace('/<\s*\/\s*li\s*>/i', "\n", (string) $normalized);
+        $normalized = preg_replace('/<\s*li[^>]*>/i', '* ', (string) $normalized);
+        $normalized = preg_replace('/<\s*h[1-6][^>]*>\s*/i', "\n", (string) $normalized);
+        $normalized = preg_replace('/<\s*\/\s*h[1-6]\s*>/i', "\n", (string) $normalized);
+
+        $normalized = strip_tags((string) $normalized);
+        $normalized = html_entity_decode($normalized, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+        $normalized = preg_replace('/\n{2,}/', "\n", $normalized);
+
+        return trim((string) $normalized);
     }
 
     /**

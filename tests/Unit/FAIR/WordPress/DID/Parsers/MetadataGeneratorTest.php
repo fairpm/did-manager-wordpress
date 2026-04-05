@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace Tests\Unit\FAIR\WordPress\DID\Parsers;
 
 use FAIR\WordPress\DID\Parsers\MetadataGenerator;
+use FAIR\WordPress\DID\Parsers\ReadmeParser;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -192,6 +193,29 @@ class MetadataGeneratorTest extends TestCase
         $generator = new MetadataGenerator($this->getHeaderData(), $this->getReadmeData());
         $metadata = $generator->generate();
         $this->assertArrayHasKey('sections', $metadata);
+    }
+
+    /**
+     * Test readme markdown fields are rendered as HTML in metadata sections
+     */
+    public function testReadmeMarkdownRenderedAsHtmlInMetadataSections(): void
+    {
+        $readme = <<<'README'
+            === My Test Plugin ===
+
+            == Description ==
+
+            This is **bold** text.
+            README;
+
+        $readme_parser = new ReadmeParser();
+        $readme_data = $readme_parser->parse_content($readme);
+
+        $generator = new MetadataGenerator($this->getHeaderData(), $readme_data);
+        $metadata = $generator->generate();
+
+        $this->assertArrayHasKey('sections', $metadata);
+        $this->assertStringContainsString('<strong>bold</strong>', $metadata['sections']['description']);
     }
 
     /**
