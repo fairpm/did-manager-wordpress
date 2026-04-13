@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "30a17eeeeb3f884bb746f45848eee012",
+    "content-hash": "dfa290ccbe2510d8dff62b683574eec5",
     "packages": [
         {
             "name": "afragen/wordpress-plugin-readme-parser",
@@ -169,22 +169,22 @@
         },
         {
             "name": "fairpm/did-manager",
-            "version": "0.0.3",
+            "version": "0.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fairpm/did-manager.git",
-                "reference": "68781633733c918d0d3a7deacfd3822ce1971134"
+                "reference": "2aaea668dc045e9ce0a57a3375597b2e233d4695"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fairpm/did-manager/zipball/68781633733c918d0d3a7deacfd3822ce1971134",
-                "reference": "68781633733c918d0d3a7deacfd3822ce1971134",
+                "url": "https://api.github.com/repos/fairpm/did-manager/zipball/2aaea668dc045e9ce0a57a3375597b2e233d4695",
+                "reference": "2aaea668dc045e9ce0a57a3375597b2e233d4695",
                 "shasum": ""
             },
             "require": {
                 "ext-curl": "*",
                 "ext-json": "*",
-                "php": ">=8.3",
+                "php": ">=8.0",
                 "simplito/elliptic-php": "^1.0",
                 "spomky-labs/cbor-php": "^3.1",
                 "yocto/yoclib-multibase": "^1.2"
@@ -213,9 +213,9 @@
             "description": "Core PHP library for DID management, key handling, and PLC operations",
             "support": {
                 "issues": "https://github.com/fairpm/did-manager/issues",
-                "source": "https://github.com/fairpm/did-manager/tree/0.0.3"
+                "source": "https://github.com/fairpm/did-manager/tree/0.0.4"
             },
-            "time": "2026-03-13T18:34:47+00:00"
+            "time": "2026-03-28T15:20:21+00:00"
         },
         {
             "name": "simplito/bigint-wrapper-php",
@@ -3267,9 +3267,9 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=8.3",
+        "php": ">=8.0",
         "ext-json": "*"
     },
-    "platform-dev": [],
-    "plugin-api-version": "2.6.0"
+    "platform-dev": {},
+    "plugin-api-version": "2.9.0"
 }

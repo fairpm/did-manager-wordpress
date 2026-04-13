@@ -15,7 +15,7 @@
     "ext-json": "*",
     "afragen/wordpress-plugin-readme-parser": "^1.2025.12",
     "erusev/parsedown": "^1.7",
-    "fairpm/did-manager": "^0.0.3"
+    "fairpm/did-manager": "^0.0.4"
   },
   "require-dev": {
     "carthage-software/mago": "^1.0.0-rc.12",
