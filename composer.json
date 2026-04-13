@@ -11,7 +11,7 @@
     }
   ],
   "require": {
-    "php": ">=8.3",
+    "php": ">=8.0",
     "ext-json": "*",
     "afragen/wordpress-plugin-readme-parser": "^1.2025.12",
     "erusev/parsedown": "^1.7",
