@@ -206,7 +206,7 @@ class MetadataGenerator
 
         $dir = dirname($file_path);
         if (!is_dir($dir)) {
-            if (!mkdir($dir, 0o755, true)) {
+            if (!mkdir($dir, 0755, true)) {
                 throw new \RuntimeException("Failed to create directory: {$dir}");
             }
         }

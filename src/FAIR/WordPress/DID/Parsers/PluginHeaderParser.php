@@ -21,7 +21,7 @@ class PluginHeaderParser
     /**
      * Standard WordPress plugin header fields
      */
-    private const array STANDARD_FIELDS = [
+    private const STANDARD_FIELDS = [
         'Plugin Name',
         'Plugin URI',
         'Description',
@@ -43,7 +43,7 @@ class PluginHeaderParser
     /**
      * FAIR-specific header fields
      */
-    private const array FAIR_FIELDS = [
+    private const FAIR_FIELDS = [
         'Plugin ID', // DID.
         'Theme ID', // DID for themes.
     ];
@@ -51,7 +51,7 @@ class PluginHeaderParser
     /**
      * Maximum bytes to read from file
      */
-    private const int MAX_HEADER_SIZE = 8192;
+    private const MAX_HEADER_SIZE = 8192;
 
     /**
      * Parse plugin headers from a directory.

@@ -37,7 +37,7 @@ class WordPressDIDManagerTest extends TestCase
     protected function setUp(): void
     {
         $this->temp_dir = sys_get_temp_dir() . '/did-manager-wordpress-' . uniqid();
-        mkdir($this->temp_dir, 0o755, true);
+        mkdir($this->temp_dir, 0755, true);
         $this->did_manager = $this->createMock(DIDManager::class);
     }
 
@@ -49,7 +49,7 @@ class WordPressDIDManagerTest extends TestCase
     public function testDetectPackageTypeReturnsPlugin(): void
     {
         $plugin_dir = $this->temp_dir . '/plugin';
-        mkdir($plugin_dir, 0o755, true);
+        mkdir($plugin_dir, 0755, true);
         file_put_contents(
             $plugin_dir . '/plugin.php',
             "<?php\n/**\n * Plugin Name: Test Plugin\n */\n",
@@ -63,7 +63,7 @@ class WordPressDIDManagerTest extends TestCase
     public function testDetectPackageTypeReturnsTheme(): void
     {
         $theme_dir = $this->temp_dir . '/theme';
-        mkdir($theme_dir, 0o755, true);
+        mkdir($theme_dir, 0755, true);
         file_put_contents(
             $theme_dir . '/style.css',
             "/*\nTheme Name: Test Theme\n*/\n",
@@ -77,7 +77,7 @@ class WordPressDIDManagerTest extends TestCase
     public function testInjectPackageIdUpdatesPluginHeader(): void
     {
         $plugin_dir = $this->temp_dir . '/plugin';
-        mkdir($plugin_dir, 0o755, true);
+        mkdir($plugin_dir, 0755, true);
         $plugin_file = $plugin_dir . '/plugin.php';
         file_put_contents(
             $plugin_file,
@@ -96,7 +96,7 @@ class WordPressDIDManagerTest extends TestCase
     public function testCreatePackageDidPassesGenericMetadataToCoreManager(): void
     {
         $plugin_dir = $this->temp_dir . '/plugin';
-        mkdir($plugin_dir, 0o755, true);
+        mkdir($plugin_dir, 0755, true);
         file_put_contents(
             $plugin_dir . '/plugin.php',
             "<?php\n/**\n * Plugin Name: Test Plugin\n */\n",

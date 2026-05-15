@@ -22,7 +22,7 @@ class WordPressDIDManager
     /**
      * Maximum bytes to inspect when detecting package headers.
      */
-    private const int MAX_HEADER_SIZE = 8192;
+    private const MAX_HEADER_SIZE = 8192;
 
     /**
      * Core DID manager.
