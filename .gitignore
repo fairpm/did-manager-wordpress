@@ -1,6 +1,7 @@
 #### ignore all dotfiles and dot-dirs, with exceptions
 .*
 !.config/
+!.github/
 !.distignore
 !.dockerignore
 !.editorconfig
