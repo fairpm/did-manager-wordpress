@@ -63,7 +63,16 @@ See [examples](examples):
 ## Testing
 
 ```bash
-composer tests
 composer lint
 composer analyze
+composer test
 ```
+
+Formatting can be applied with:
+
+```bash
+composer lint
+composer format
+```
+
+The project uses a custom PSR-12-derived PHPCS ruleset for coding standards, PHPStan for static analysis, and PHPUnit for tests.
