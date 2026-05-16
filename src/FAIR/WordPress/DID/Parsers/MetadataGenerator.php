@@ -537,10 +537,7 @@ class MetadataGenerator
             . '\[[^\]]+\]\([^)]+\)|^\s*[-*+]\s+|^\s*\d+\.\s+|'
             . '^\s*#{1,6}\s+|^\s*=\s*[^=]+\s*=\s*$)/m';
 
-        return 1 === preg_match(
-            $pattern,
-            $content,
-        );
+        return 1 === preg_match($pattern, $content);
     }
 
     /**
