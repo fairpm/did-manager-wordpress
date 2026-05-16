@@ -19,7 +19,7 @@
 .gitattributes export-ignore
 .gitignore export-ignore
 phpcs.xml.dist export-ignore
-phpunit.xml export-ignore
+phpunit.xml.dist export-ignore
 mago.toml export-ignore
 
 # Exclude directories from distribution

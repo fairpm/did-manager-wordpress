@@ -9,6 +9,10 @@
 !.gitattributes
 !.gitignore
 
+#### local tooling overrides
+phpunit.xml
+phpstan.neon
+
 #### ignore these patterns
 *.bak
 *.log
