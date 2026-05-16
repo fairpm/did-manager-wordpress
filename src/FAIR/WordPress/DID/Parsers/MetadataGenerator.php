@@ -533,8 +533,12 @@ class MetadataGenerator
      */
     private function contains_markdown(string $content): bool
     {
+        $pattern = '/(\*\*[^*]+\*\*|__[^_]+__|`[^`]+`|'
+            . '\[[^\]]+\]\([^)]+\)|^\s*[-*+]\s+|^\s*\d+\.\s+|'
+            . '^\s*#{1,6}\s+|^\s*=\s*[^=]+\s*=\s*$)/m';
+
         return 1 === preg_match(
-            '/(\*\*[^*]+\*\*|__[^_]+__|`[^`]+`|\[[^\]]+\]\([^)]+\)|^\s*[-*+]\s+|^\s*\d+\.\s+|^\s*#{1,6}\s+|^\s*=\s*[^=]+\s*=\s*$)/m',
+            $pattern,
             $content,
         );
     }

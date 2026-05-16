@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore PSR1.Files.SideEffects.FoundWithSymbols -- Standalone usage requires loading WordPress stubs before class declarations.
 
 /**
  * ReadmeParser - WordPress readme.txt parsing
