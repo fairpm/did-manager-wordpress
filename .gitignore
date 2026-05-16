@@ -1,12 +1,17 @@
 #### ignore all dotfiles and dot-dirs, with exceptions
 .*
 !.config/
+!.github/
 !.distignore
 !.dockerignore
 !.editorconfig
 !.env.example
 !.gitattributes
 !.gitignore
+
+#### local tooling overrides
+phpunit.xml
+phpstan.neon
 
 #### ignore these patterns
 *.bak

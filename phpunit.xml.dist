@@ -7,11 +7,6 @@
          beStrictAboutOutputDuringTests="true"
          displayDetailsOnAllIssues="true"
 >
-    <groups>
-        <exclude>
-            <group>default-disabled</group>
-        </exclude>
-    </groups>
     <testsuites>
         <testsuite name="Unit">
             <directory>tests/Unit</directory>
@@ -22,7 +17,4 @@
             <directory>src</directory>
         </include>
     </source>
-    <php>
-        <env name="APP_ENV" value="testing" force="true" />
-    </php>
 </phpunit>

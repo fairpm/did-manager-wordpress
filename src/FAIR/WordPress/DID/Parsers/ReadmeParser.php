@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore PSR1.Files.SideEffects.FoundWithSymbols -- Standalone usage requires loading WordPress stubs before class declarations.
 
 /**
  * ReadmeParser - WordPress readme.txt parsing
@@ -387,7 +387,7 @@ class ReadmeParser
             return [];
         }
 
-        return $this->parser->warnings ?? [];
+        return $this->parser->warnings;
     }
 
     /**
@@ -401,7 +401,7 @@ class ReadmeParser
             return [];
         }
 
-        return $this->parser->screenshots ?? [];
+        return $this->parser->screenshots;
     }
 
     /**
@@ -415,7 +415,7 @@ class ReadmeParser
             return [];
         }
 
-        return $this->parser->upgrade_notice ?? [];
+        return $this->parser->upgrade_notice;
     }
 
     /**
@@ -429,6 +429,6 @@ class ReadmeParser
             return [];
         }
 
-        return $this->parser->faq ?? [];
+        return $this->parser->faq;
     }
 }
