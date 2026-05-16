@@ -387,7 +387,7 @@ class ReadmeParser
             return [];
         }
 
-        return $this->parser->warnings ?? [];
+        return $this->parser->warnings;
     }
 
     /**
@@ -401,7 +401,7 @@ class ReadmeParser
             return [];
         }
 
-        return $this->parser->screenshots ?? [];
+        return $this->parser->screenshots;
     }
 
     /**
@@ -415,7 +415,7 @@ class ReadmeParser
             return [];
         }
 
-        return $this->parser->upgrade_notice ?? [];
+        return $this->parser->upgrade_notice;
     }
 
     /**
@@ -429,6 +429,6 @@ class ReadmeParser
             return [];
         }
 
-        return $this->parser->faq ?? [];
+        return $this->parser->faq;
     }
 }
