@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "42f24800b2cfe6604a6b3483e674f347",
+    "content-hash": "7a9cff8c3c81669511b72eb0057e5485",
     "packages": [
         {
             "name": "afragen/wordpress-plugin-readme-parser",
@@ -165,16 +165,16 @@
         },
         {
             "name": "fairpm/did-manager",
-            "version": "0.0.5",
+            "version": "0.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fairpm/did-manager.git",
-                "reference": "52004bb6ae365b7e66ed9adf78cff7f6e16f60f2"
+                "reference": "28305a8d3b48b94b4f444268337129deb46154b6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fairpm/did-manager/zipball/52004bb6ae365b7e66ed9adf78cff7f6e16f60f2",
-                "reference": "52004bb6ae365b7e66ed9adf78cff7f6e16f60f2",
+                "url": "https://api.github.com/repos/fairpm/did-manager/zipball/28305a8d3b48b94b4f444268337129deb46154b6",
+                "reference": "28305a8d3b48b94b4f444268337129deb46154b6",
                 "shasum": ""
             },
             "require": {
@@ -186,10 +186,10 @@
                 "yocto/yoclib-multibase": "^1.2"
             },
             "require-dev": {
-                "carthage-software/mago": "^1.0.0-rc.12",
                 "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
                 "phpcompatibility/php-compatibility": "^9.3",
-                "phpunit/phpunit": "^10.0",
+                "phpstan/phpstan": "^1.12",
+                "phpunit/phpunit": "^9.6",
                 "roave/security-advisories": "dev-latest",
                 "squizlabs/php_codesniffer": "^3.7"
             },
@@ -212,9 +212,9 @@
             "description": "Core PHP library for DID management, key handling, and PLC operations",
             "support": {
                 "issues": "https://github.com/fairpm/did-manager/issues",
-                "source": "https://github.com/fairpm/did-manager/tree/0.0.5"
+                "source": "https://github.com/fairpm/did-manager/tree/0.0.6"
             },
-            "time": "2026-05-15T16:57:27+00:00"
+            "time": "2026-05-19T17:15:37+00:00"
         },
         {
             "name": "simplito/bigint-wrapper-php",
@@ -3648,6 +3648,6 @@
         "php": ">=8.0",
         "ext-json": "*"
     },
-    "platform-dev": [],
-    "plugin-api-version": "2.2.0"
+    "platform-dev": {},
+    "plugin-api-version": "2.9.0"
 }
