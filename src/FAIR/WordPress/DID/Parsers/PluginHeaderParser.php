@@ -285,23 +285,22 @@ class PluginHeaderParser
      */
     public function get_slug(string $path, ?array $headers = null): ?string
     {
-        // Try to get from Text Domain.
+        // Prefer the plugin directory name when available.
+        if (is_dir($path)) {
+            return basename(rtrim($path, '/\\'));
+        }
+
+        // Fall back to the plugin file name.
+        if (is_file($path)) {
+            return pathinfo($path, PATHINFO_FILENAME);
+        }
+
         if (null === $headers) {
             $headers = $this->parse($path);
         }
 
         if (!empty($headers['text_domain'] ?? null)) {
             return $headers['text_domain'];
-        }
-
-        // Fall back to directory name.
-        if (is_dir($path)) {
-            return basename(rtrim($path, '/\\'));
-        }
-
-        // Fall back to filename without extension.
-        if (is_file($path)) {
-            return pathinfo($path, PATHINFO_FILENAME);
         }
 
         return null;

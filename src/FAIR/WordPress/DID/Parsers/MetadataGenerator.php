@@ -556,9 +556,11 @@ class MetadataGenerator
 
         $generator = new self($header_data, $readme_data);
 
-        // Try to set slug from path.
+        // Prefer the plugin directory name, then the plugin file name.
         if (is_dir($path)) {
             $generator->set_slug(basename(rtrim($path, '/\\')));
+        } elseif (is_file($path)) {
+            $generator->set_slug(pathinfo($path, PATHINFO_FILENAME));
         }
 
         return $generator;
