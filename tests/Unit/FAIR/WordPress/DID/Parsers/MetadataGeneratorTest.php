@@ -89,6 +89,37 @@ class MetadataGeneratorTest extends TestCase
     }
 
     /**
+     * Test slug prefers plugin directory over file name and text domain
+     */
+    public function testFromPathSlugPrefersPluginDirectory(): void
+    {
+        $plugin_dir = $this->createTempPluginDirectory('plugin-dir-slug', 'plugin-file-slug.php', 'header-text-domain');
+
+        try {
+            $metadata = MetadataGenerator::from_path($plugin_dir)->generate();
+            $this->assertSame('plugin-dir-slug', $metadata['slug']);
+        } finally {
+            $this->removeTempPath(dirname($plugin_dir));
+        }
+    }
+
+    /**
+     * Test slug prefers plugin file name over text domain for file paths
+     */
+    public function testFromPathSlugPrefersPluginFileName(): void
+    {
+        $plugin_dir = $this->createTempPluginDirectory('plugin-dir-slug', 'plugin-file-slug.php', 'header-text-domain');
+        $plugin_file = $plugin_dir . DIRECTORY_SEPARATOR . 'plugin-file-slug.php';
+
+        try {
+            $metadata = MetadataGenerator::from_path($plugin_file)->generate();
+            $this->assertSame('plugin-file-slug', $metadata['slug']);
+        } finally {
+            $this->removeTempPath(dirname($plugin_dir));
+        }
+    }
+
+    /**
      * Test name from header
      */
     public function testNameFromHeader(): void
@@ -287,5 +318,58 @@ class MetadataGeneratorTest extends TestCase
         $this->assertArrayHasKey('security', $metadata);
         $this->assertIsArray($metadata['security']);
         $this->assertSame('security@example.com', $metadata['security'][0]['email']);
+    }
+
+    /**
+     * Create a temporary plugin directory for from_path tests.
+     */
+    private function createTempPluginDirectory(string $directory_name, string $file_name, string $text_domain): string
+    {
+        $base_path = sys_get_temp_dir() . DIRECTORY_SEPARATOR . uniqid('did-manager-metadata-', true);
+        $plugin_dir = $base_path . DIRECTORY_SEPARATOR . $directory_name;
+
+        mkdir($plugin_dir, 0777, true);
+
+        $plugin_header = <<<PHP
+<?php
+/**
+ * Plugin Name: Temporary Test Plugin
+ * Text Domain: {$text_domain}
+ */
+PHP;
+
+        file_put_contents($plugin_dir . DIRECTORY_SEPARATOR . $file_name, $plugin_header);
+
+        return $plugin_dir;
+    }
+
+    /**
+     * Remove a temporary path recursively.
+     */
+    private function removeTempPath(string $path): void
+    {
+        if (is_file($path)) {
+            unlink($path);
+            return;
+        }
+
+        if (!is_dir($path)) {
+            return;
+        }
+
+        $items = scandir($path);
+        if (false === $items) {
+            return;
+        }
+
+        foreach ($items as $item) {
+            if ('.' === $item || '..' === $item) {
+                continue;
+            }
+
+            $this->removeTempPath($path . DIRECTORY_SEPARATOR . $item);
+        }
+
+        rmdir($path);
     }
 }

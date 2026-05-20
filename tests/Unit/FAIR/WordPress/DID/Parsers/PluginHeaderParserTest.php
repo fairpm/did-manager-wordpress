@@ -119,6 +119,45 @@ class PluginHeaderParserTest extends TestCase
     }
 
     /**
+     * Test slug prefers plugin directory over file name and text domain
+     */
+    public function testGetSlugPrefersPluginDirectory(): void
+    {
+        $plugin_dir = $this->createTempPluginDirectory('plugin-dir-slug', 'main-plugin.php', 'header-text-domain');
+
+        try {
+            $this->assertSame('plugin-dir-slug', $this->parser->get_slug($plugin_dir));
+        } finally {
+            $this->removeTempPath(dirname($plugin_dir));
+        }
+    }
+
+    /**
+     * Test slug prefers plugin file name over text domain for file paths
+     */
+    public function testGetSlugPrefersPluginFileName(): void
+    {
+        $plugin_dir = $this->createTempPluginDirectory('plugin-dir-slug', 'plugin-file-slug.php', 'header-text-domain');
+        $plugin_file = $plugin_dir . DIRECTORY_SEPARATOR . 'plugin-file-slug.php';
+
+        try {
+            $this->assertSame('plugin-file-slug', $this->parser->get_slug($plugin_file));
+        } finally {
+            $this->removeTempPath(dirname($plugin_dir));
+        }
+    }
+
+    /**
+     * Test slug falls back to text domain when no path signal is available
+     */
+    public function testGetSlugFallsBackToTextDomain(): void
+    {
+        $headers = $this->parser->parse_content($this->getStandardHeader());
+
+        $this->assertSame('my-test-plugin', $this->parser->get_slug('missing-plugin-path', $headers));
+    }
+
+    /**
      * Test parsing requires at least
      */
     public function testParseRequiresAtLeast(): void
@@ -246,5 +285,58 @@ class PluginHeaderParserTest extends TestCase
         $no_comment = "<?php\necho 'Hello World';";
         $result = $this->parser->parse_content($no_comment);
         $this->assertEmpty($result);
+    }
+
+    /**
+     * Create a temporary plugin directory for slug tests.
+     */
+    private function createTempPluginDirectory(string $directory_name, string $file_name, string $text_domain): string
+    {
+        $base_path = sys_get_temp_dir() . DIRECTORY_SEPARATOR . uniqid('did-manager-plugin-', true);
+        $plugin_dir = $base_path . DIRECTORY_SEPARATOR . $directory_name;
+
+        mkdir($plugin_dir, 0777, true);
+
+        $plugin_header = <<<PHP
+<?php
+/**
+ * Plugin Name: Temporary Test Plugin
+ * Text Domain: {$text_domain}
+ */
+PHP;
+
+        file_put_contents($plugin_dir . DIRECTORY_SEPARATOR . $file_name, $plugin_header);
+
+        return $plugin_dir;
+    }
+
+    /**
+     * Remove a temporary path recursively.
+     */
+    private function removeTempPath(string $path): void
+    {
+        if (is_file($path)) {
+            unlink($path);
+            return;
+        }
+
+        if (!is_dir($path)) {
+            return;
+        }
+
+        $items = scandir($path);
+        if (false === $items) {
+            return;
+        }
+
+        foreach ($items as $item) {
+            if ('.' === $item || '..' === $item) {
+                continue;
+            }
+
+            $this->removeTempPath($path . DIRECTORY_SEPARATOR . $item);
+        }
+
+        rmdir($path);
     }
 }
